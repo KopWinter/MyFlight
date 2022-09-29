@@ -11,7 +11,6 @@ import pucrs.myflight.modelo.GerenciadorRotas;
 import pucrs.myflight.modelo.GerenciadorVoos;
 import pucrs.myflight.modelo.Rota;
 import pucrs.myflight.modelo.Voo;
-
 import java.time.LocalDateTime;
 import java.time.Duration;
 
@@ -33,20 +32,23 @@ public class MyFlight{
 
         Geo geo1 = new Geo(-29.9939,	-51.1711);
         Geo geo2 = new Geo(-23.4356,    -46.4731);
-
+        Geo geo3 = new Geo(38.7742, -9.1342);
         Aeroporto p1 = new Aeroporto("POA","Salgado Filho Intl Apt", geo1);
         gerenciadorAeroportos.adicionar(p1);
         Aeroporto p2 = new Aeroporto("GRU","São Paulo Guarulhos Intl Apt", geo2);
         gerenciadorAeroportos.adicionar(p1);
+        Aeroporto p3 = new Aeroporto("LIS","Lisbon", geo3);
 
         CiaAerea c1 = new CiaAerea("AD","Azul Linhas Aéreas");
         gerenciadorCias.adicionar(c1);
 
         Rota r1 = new Rota(c1, p1, p2, a1);
         gerenciadorRotas.adicionar(r1);
-
+        Rota rf = new Rota(c1, p2, p3, a1);
         LocalDateTime datavoo = LocalDateTime.of(2022, 02, 28, 22, 32);
+        LocalDateTime dataescala = LocalDateTime.of(2022, 03, 01, 02, 00); 
         Duration tvoo = Duration.ofMinutes(120);
+        Duration tescala = Duration.ofMinutes(600);
 
         Voo v1 = new Voo(r1, datavoo, tvoo);
        gerenciadorVoos.adicionar(v1);
@@ -59,5 +61,8 @@ public class MyFlight{
        System.out.println(p1.getLocal().caldis(p2.getLocal()));
        System.out.println(Geo.distancia(p1.getLocal(), p2.getLocal()));
        System.out.println(a1.getContavel());
+       VooEscalas ve1 = new VooEscalas(r1, rf, dataescala, tescala);
+       System.out.println(ve1.getRota());
     }
+    
 }
